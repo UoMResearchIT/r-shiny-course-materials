@@ -40,7 +40,8 @@ ui <- fluidPage(
       
       # Show a plot of the generated distribution
       mainPanel(
-         plotOutput("gapminderPlot")
+         plotOutput("gapminderPlot"),
+         tableOutput("graphData")
       )
    )
 )
@@ -52,6 +53,10 @@ server <- function(input, output) {
      gapminder %>% 
        filter(year == input$year) %>% 
        filter(continent %in% input$continent)
+   })
+   
+   output$graphData <- renderTable({
+     plotData()
    })
    
    output$gapminderPlot <- renderPlot({
