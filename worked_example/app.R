@@ -48,10 +48,14 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
-   output$gapminderPlot <- renderPlot({
-      gapminder %>% 
+   plotData <- reactive({
+     gapminder %>% 
        filter(year == input$year) %>% 
-       filter(continent %in% input$continent) %>% 
+       filter(continent %in% input$continent)
+   })
+   
+   output$gapminderPlot <- renderPlot({
+      plotData() %>% 
        produceGapminderPlot()
    })
 }
