@@ -23,11 +23,15 @@ ui <- fluidPage(
    # Sidebar with a slider input for number of bins 
    sidebarLayout(
       sidebarPanel(
-         sliderInput("bins",
-                     "Number of bins:",
-                     min = 1,
-                     max = 50,
-                     value = 30),
+         sliderInput("year",
+                     "Select year",
+                     min = min(gapminder$year),
+                     max = max(gapminder$year),
+                     value = min(gapminder$year),
+                     sep="", # Hide thousands , separator
+                     step=1, # Select every year
+                     animate = animationOptions(interval = 1250)
+                     ),
          checkboxGroupInput("continent",
                             "Select continents",
                             choices = levels(gapminder$continent),
