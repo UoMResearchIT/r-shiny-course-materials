@@ -18,7 +18,7 @@ source("workshopFunctions.R")
 ui <- fluidPage(
    
    # Application title
-   titlePanel("Old Faithful Geyser Data"),
+   titlePanel("Gapminder plot"),
    
    # Sidebar with a slider input for number of bins 
    sidebarLayout(
@@ -27,7 +27,11 @@ ui <- fluidPage(
                      "Number of bins:",
                      min = 1,
                      max = 50,
-                     value = 30)
+                     value = 30),
+         checkboxGroupInput("continent",
+                            "Select continents",
+                            choices = levels(gapminder$continent),
+                            selected = levels(gapminder$continent))
       ),
       
       # Show a plot of the generated distribution
