@@ -56,7 +56,8 @@ server <- function(input, output) {
    })
    
    output$graphData <- renderTable({
-     plotData()
+     plotData() %>% 
+       getRichestCountry()
    })
    
    output$gapminderPlot <- renderPlot({
