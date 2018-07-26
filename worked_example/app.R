@@ -50,7 +50,8 @@ server <- function(input, output) {
    
    output$gapminderPlot <- renderPlot({
       gapminder %>% 
-       filter(year == 2000) %>% 
+       filter(year == input$year) %>% 
+       filter(continent %in% input$continent) %>% 
        produceGapminderPlot()
    })
 }
