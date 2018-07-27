@@ -40,8 +40,9 @@ ui <- fluidPage(
       
       # Show a plot of the generated distribution
       mainPanel(
-         plotOutput("gapminderPlot"),
-         tableOutput("graphData")
+         plotOutput("gapminderPlot", click="plotClick"),
+         tableOutput("graphData"),
+         verbatimTextOutput("clickData")
       )
    )
 )
@@ -64,6 +65,10 @@ server <- function(input, output) {
       plotData() %>% 
        produceGapminderPlot()
    })
+   
+   output$clickData <- renderPrint(({
+     input$plotClick
+   }))
 }
 
 # Run the application 
