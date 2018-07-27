@@ -67,7 +67,7 @@ server <- function(input, output) {
    })
    
    output$clickData <- renderPrint(({
-     input$plotClick
+     nearPoints(plotData(), input$plotClick, maxpoints = 1)
    }))
 }
 
