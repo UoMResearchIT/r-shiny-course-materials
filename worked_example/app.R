@@ -19,30 +19,31 @@ ui <- fluidPage(
    
    # Application title
    titlePanel("Gapminder plot"),
-   
-   # Sidebar with a slider input for number of bins 
-   sidebarLayout(
-      sidebarPanel(
-         sliderInput("year",
-                     "Select year",
-                     min = min(gapminder$year),
-                     max = max(gapminder$year),
-                     value = min(gapminder$year),
-                     sep="", # Hide thousands , separator
-                     step=1, # Select every year
-                     animate = animationOptions(interval = 1250)
-                     ),
-         checkboxGroupInput("continent",
-                            "Select continents",
-                            choices = levels(gapminder$continent),
-                            selected = levels(gapminder$continent))
-      ),
-      
-      # Show a plot of the generated distribution
-      mainPanel(
+  
+   fluidRow(
+      column(12,
          plotOutput("gapminderPlot", click="plotClick"),
          tableOutput("graphData"),
          verbatimTextOutput("clickData")
+      )
+   ),
+   fluidRow(
+      column(6,
+             sliderInput("year",
+                         "Select year",
+                         min = min(gapminder$year),
+                         max = max(gapminder$year),
+                         value = min(gapminder$year),
+                         sep="", # Hide thousands , separator
+                         step=1, # Select every year
+                         animate = animationOptions(interval = 1250)
+             )
+      ),
+      column(6,
+             checkboxGroupInput("continent",
+                                "Select continents",
+                                choices = levels(gapminder$continent),
+                                selected = levels(gapminder$continent))
       )
    )
 )
