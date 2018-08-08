@@ -53,6 +53,12 @@ server <- function(input, output) {
    # Create a reactive value to store the country we seleect
    activeCountry <- reactiveVal()
    
+   historicData <- reactive({
+      gapminder %>% 
+         filter(year <= input$year) %>% 
+         filter(country == activeCountry()) # activeCountry is reactive, its value is accessed using activeCountry()
+   })
+   
    # Update the value of activeCountry() when we detect an input$plotClick event
    # (Note how we update a reactiveVal() )
    observeEvent(input$plotClick, 
