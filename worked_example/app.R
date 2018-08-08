@@ -50,6 +50,17 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
+   # Create a reactive value to store the country we seleect
+   activeCountry <- reactiveVal()
+   
+   # Update the value of activeCountry() when we detect an input$plotClick event
+   # (Note how we update a reactiveVal() )
+   observeEvent(input$plotClick, 
+                {
+                   nearCountry <- nearPoints(plotData(), input$plotClick, maxpoints = 1)
+                   activeCountry(as.character(nearCountry$country)) # Extract just the country name and assign it to activeCountry()
+                })
+   
    plotData <- reactive({
      gapminder %>% 
        filter(year == input$year) %>% 
@@ -67,7 +78,7 @@ server <- function(input, output) {
    })
    
    output$clickData <- renderPrint(({
-     nearPoints(plotData(), input$plotClick, maxpoints = 1)
+      activeCountry()
    }))
 }
 
