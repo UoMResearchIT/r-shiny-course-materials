@@ -79,8 +79,14 @@ server <- function(input, output) {
    })
    
    output$gapminderPlot <- renderPlot({
-      plotData() %>% 
-       produceGapminderPlot()
+      if (length(activeCountry()) == 0) { # No country selected; regular plot
+         plotData() %>% 
+            produceGapminderPlot() 
+      } else {
+         plotData() %>% 
+            produceGapminderPlot(makeSemiTransparent = TRUE) %>% 
+            addHistoricPlot(historicData())
+      }
    })
    
    output$clickData <- renderPrint(({
