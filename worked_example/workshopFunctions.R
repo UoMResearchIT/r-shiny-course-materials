@@ -94,7 +94,7 @@ produceGapminderPlot <- function(indata,
          colour = "Continent") +
     scale_colour_manual(values = continent_colours) +
     scale_alpha_manual() +
-    guides(size = FALSE) 
+    guides(size = "none") 
   
   return(gapminderPlot)
   
